@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Forum forums" %>
+
+<h1>Forum forums</h1>
+
+<div id="forum_forums">
+  <% @forum_forums.each do |forum_forum| %>
+    <%= render forum_forum %>
+    <p>
+      <%= link_to "Show this forum forum", forum_forum %>
+    </p>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @admin_forum_subforum %>
+<br>
+<h2>Threads that belong to this Subforum(Admin)</h2>
+<% @admin_forum_threads.each do |thread|%>
+  <%= render partial: "forum_threads/forum_thread", locals: { forum_thread: thread }%>
+<% end %>
+<br>
+<div>
+  <%= link_to "Edit this forum subforum", edit_admin_forum_subforum_path(@admin_forum_subforum) %> |
+  <%= link_to "Back to forum subforums", admin_forum_subforums_path %>
+
+  <%= button_to "Destroy this forum subforum", @admin_forum_subforum, method: :delete %>
+</div>

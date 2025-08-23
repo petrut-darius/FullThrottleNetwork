@@ -1,0 +1,61 @@
+<head>
+<meta charset="UTF-8">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .reply-box {
+        display: none;
+        margin-top: 10px;
+    }
+    textarea {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<% posts.each do |post_as_parent| %>
+  <div style="border-style: solid;padding: 10px;border-radius: 10px;">
+  <% if post_as_parent.parent_id.present?%>
+    <p style="background-color: #444;">Raspunde la intrebarea "<b class= "text-info"><%=ForumPost.find_by(id: post_as_parent.parent_id)&.content.capitalize%>"</b></p>
+  <% end %>
+    <b>By: <%= post_as_parent.user.username %></b>
+    <p><%= post_as_parent.content.capitalize %> <button class="replyBtn" data-post-id="<%= post_as_parent.id %>">Reply</button> </p>
+  <div class="reply-box" data-post-id="<%= post_as_parent.id %>">
+    <%= form_with model: [thread, post] do |form| %>
+      <%= form.hidden_field :parent_id, value: post_as_parent.id %>
+      <%= form.label :content, "Reply!", style: "display: block" %>
+      <%= form.text_field :content, placeholder: "Reply" %>
+      <%= form.submit "Create Reply" %>
+    <% end %>
+    <button class="cancelReply" data-post-id="<%= post_as_parent.id %>">Cancel</button>
+  </div>
+  </div>
+  <br>
+<% end %>
+
+
+<script>
+  document.addEventListener("turbo:load", function() {
+      // Show reply box
+      document.querySelectorAll(".replyBtn").forEach(button => {
+          button.addEventListener("click", () => {
+              const postId = button.dataset.postId;
+              const box = document.querySelector(`.reply-box[data-post-id="${postId}"]`);
+              box.style.display = "block";
+              button.style.display = "none";
+          });
+      });
+
+      // Cancel reply
+      document.querySelectorAll(".cancelReply").forEach(button => {
+          button.addEventListener("click", () => {
+              const postId = button.dataset.postId;
+              const box = document.querySelector(`.reply-box[data-post-id="${postId}"]`);
+              box.style.display = "none";
+              document.querySelector(`.replyBtn[data-post-id="${postId}"]`).style.display = "inline-block";
+          });
+      });
+  });
+</script>

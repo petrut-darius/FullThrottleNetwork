@@ -1,0 +1,28 @@
+<%= form_with(model: [ :admin, admin_forum_subforum ]) do |form| %>
+  <% if admin_forum_subforum.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(forum_subforum.errors.count, "error") %> prohibited this forum_subforum from being saved:</h2>
+
+      <ul>
+        <% forum_subforum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :forum_forum_id, "Parent Forum:" %><br>
+    <%= form.collection_select :forum_forum_id, ForumForum.all, :id, :name, prompt: "Select a Forum" %>
+  </div>
+  <br>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

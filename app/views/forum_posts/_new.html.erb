@@ -1,0 +1,5 @@
+<%= form_with model: [thread, post] do |form| %>
+  <%= form.label :content, "Scrie raspunsul tau!", style: "display: block"%>
+  <%= form.text_field :content%>
+  <%= form.submit%>
+<% end %>

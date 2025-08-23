@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<h1><%= @forum_subforum.name %></h1>
+<br>
+<h2>Threads that belong to this Subforum</h2>
+<% @forum_threads.each do |thread|%>
+  <%= render partial: "forum_threads/forum_thread", locals: { forum_thread: thread }%>
+<% end %>

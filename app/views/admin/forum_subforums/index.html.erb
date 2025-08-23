@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Subforums" %>
+
+<h1>Forum subforums(Admin)</h1>
+
+<div id="admin_forum_subforums">
+  <% @admin_forum_subforums.each do |admin_forum_subforum| %>
+    <%= render admin_forum_subforum %>
+    <p>
+      <%= link_to "Show this forum subforum", admin_forum_subforum_path(admin_forum_subforum) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New forum subforum", new_admin_forum_subforum_path %>
